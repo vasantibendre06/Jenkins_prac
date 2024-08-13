@@ -8,7 +8,7 @@ pipeline{
         }
         stage('Copy'){
             steps{
-                sh "xcopy C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\jenkins_prac D:\\Build-projects\\jenkins-prac /E /I /Y"
+                bat "xcopy C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\jenkins_prac D:\\Build-projects\\jenkins-prac /E /I /Y"
             }
         }
         stage('Test'){
