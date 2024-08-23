@@ -1,25 +1,43 @@
 pipeline{
     agent any
+    environment {
+        APACHE_ROOT = '/var/www/html'
+    }
+    
     stages{
+        stage('Admin'){
+            steps{
+                sh 'whoami'
+                sh 'sudo -i'
+            }
+        }
+        
         stage('Build'){
             steps{
                 echo 'Building the project...'
             }
         }
-        stage('Copy'){
-            steps{
-                bat "xcopy C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\jenkins_prac D:\\Build-projects\\jenkins-prac /E /I /Y"
+
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/vasantibendre06/poc.git', branch: 'main'
             }
         }
-        stage('Test'){
-            steps{
-                echo 'Testing the project...'
-            }
-        }
+
         stage('Deploy'){
             steps{
-                echo 'Deploying the project...'
+                sh "sudo cp -r ./ /var/www/html"
+                sh 'sudo systemctl restart apache2'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Deployment completed successfully!'
+        }
+        failure {
+            echo 'Deployment failed.'
         }
     }
 }
