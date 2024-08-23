@@ -20,7 +20,7 @@ pipeline{
 
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/vasantibendre06/poc.git', branch: 'main'
+                git url: 'https://github.com/vasantibendre06/Jenkins_prac.git', branch: 'main'
             }
         }
 
